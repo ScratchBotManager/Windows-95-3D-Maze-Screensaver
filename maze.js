@@ -234,15 +234,7 @@ window.onload = function() {
 								gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, openImg);
 								gl.generateMipmap(gl.TEXTURE_2D);
 								gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-	
-								const ratImg = new Image();
-								ratImg.onload = function() {
-									const ratTexture = gl.createTexture();
-									gl.activeTexture(gl.TEXTURE0+7);
-									gl.bindTexture(gl.TEXTURE_2D, ratTexture);
-									gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, ratImg);
-									gl.generateMipmap(gl.TEXTURE_2D);
-									gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+
 
 									render(); 
 								};
