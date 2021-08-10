@@ -25,8 +25,6 @@ var FinX, FinY;
 var eyeX, eyeY;
 var deyeX, deyeY;
 
-var ratX,ratY,ratdX,ratdY,rattheta,ratdtheta;
-
 var polytheta=0;
 var height =0;
 
@@ -171,7 +169,6 @@ window.onload = function() {
 	gl.uniform1i(gl.getUniformLocation(program, "start"), 4);
 	gl.uniform1i(gl.getUniformLocation(program, "fin"), 5);
 	gl.uniform1i(gl.getUniformLocation(program, "open"), 6);
-	gl.uniform1i(gl.getUniformLocation(program, "rat"), 7); 
 
     //
     // Initialize textures
@@ -293,10 +290,6 @@ function resetVars() {
 	SX1 = SX;
 	SY1 = SY;
 
-	ratdX=0;
-	ratdY=0;
-	rattheta=0;
-	ratdtheta=0;
 
 	//don't start facing a wall
 	if (maze[SY][SX][1]!=1){
@@ -333,11 +326,6 @@ function resetVars() {
 	}
 
 	[FinX,FinY] = openplaces.splice(Math.floor(Math.random() * openplaces.length),1)[0];
-	
-	[ratX,ratY] = openplaces.splice(Math.floor(Math.random() * openplaces.length),1)[0];
-	ratX+=.5;
-	ratY+=.5;
-	up = vec3(0.0, 0.0, 1.0);
 	
 	NumVertices=0;
 	elgible=[];
@@ -529,10 +517,7 @@ var render = function(){
 		[theta,eyeX,eyeY,dtheta,deyeX,deyeY]=nextMove(theta,eyeX,eyeY,dtheta,deyeX,deyeY);
 		[theta,eyeX,eyeY,dtheta,deyeX,deyeY]=nextMove(theta,eyeX,eyeY,dtheta,deyeX,deyeY);
 	}
-	[rattheta,ratX,ratY,ratdtheta,ratdX,ratdY]=nextMove(rattheta,ratX,ratY,ratdtheta,ratdX,ratdY);
-	while (ratdtheta){
-		[rattheta,ratX,ratY,ratdtheta,ratdX,ratdY]=nextMove(rattheta,ratX,ratY,ratdtheta,ratdX,ratdY);
-	}
+	
     gl.uniform1i(gl.getUniformLocation(program, "i"),3);
 	gl.drawArrays( gl.TRIANGLES, 12, PICNUM*6);
     gl.uniform1i(gl.getUniformLocation(program, "i"),0);
@@ -553,7 +538,6 @@ var render = function(){
 		gl.drawArrays( gl.TRIANGLES, NumVertices+12,6);
     }
     gl.uniform1i(gl.getUniformLocation(program, "i"),7);
-   	scaleMatrix=mult(scalem(1,1,height),mult(translate(ratX,ratY,0),mult(rotateZ(theta/Math.PI*180),scalem(.75,.75,.75))));
     gl.uniformMatrix4fv( scaleMatrixLoc, false, flatten(scaleMatrix) );
 	gl.drawArrays( gl.TRIANGLES, NumVertices+12,6);
     gl.uniform1i(gl.getUniformLocation(program, "i"),8);
