@@ -246,7 +246,7 @@ window.onload = function() {
 
 									render(); 
 								};
-								ratImg.src = './rat.png'; 
+						
 							};
 							openImg.src = './gl.png'; 
 						};
