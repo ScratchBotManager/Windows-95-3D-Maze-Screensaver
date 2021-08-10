@@ -254,7 +254,6 @@ window.onload = function() {
 	};
 	wallImg.src = './wall.bmp';    
 	       
-}
 
 function resetVars() {
 
